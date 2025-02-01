@@ -1,0 +1,33 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar Navigation -->
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-toolbar>Navigation</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="import" (click)="closeSidenav()">🏠 Import</a>
+      <a mat-list-item routerLink="export" (click)="closeSidenav()">ℹ️ Export</a>
+      <a mat-list-item routerLink="analyze" (click)="closeSidenav()">ℹ️ Analyze</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <!-- Header -->
+    <mat-toolbar color="primary" class="app-toolbar">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My Angular App</span>
+      <span class="spacer"></span>
+      <nav>
+        <a mat-button routerLink="import">Import</a>
+        <a mat-button routerLink="export">Export</a>
+        <a mat-button routerLink="analyze">Analyze</a>
+      </nav>
+    </mat-toolbar>
+
+    <!-- Router Content -->
+    <main>
+      <router-outlet #o="namedrouter"></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

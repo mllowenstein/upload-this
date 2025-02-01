@@ -39,6 +39,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "dompurify",
+              "rgbcolor",
+              "core-js",
+              "pdfmake",
+              "exceljs",
+              "dayjs"
+            ],
             "outputPath": "dist/upload-this",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -52,27 +61,42 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/bootstrap.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js"
+            ]
           },
           "configurations": {
             "production": {
-              "budgets": [
+              "fileReplacements": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "replace": "src/envs/envs.dev.ts",
+                  "with": "src/envs/env.prod.ts"
                 }
               ],
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": {
+                "hidden": false,
+                "scripts": true,
+                "styles": false
+              },
+              "namedChunks": true,
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "local": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -85,12 +109,20 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "sslKey": "cert/staging/staging.key",
+            "sslCert": "cert/staging/staging.cert"
+          },
           "configurations": {
             "production": {
               "browserTarget": "upload-this:build:production"
             },
             "development": {
               "browserTarget": "upload-this:build:development"
+            },
+            "local": {
+              "browserTarget": "upload-this:build:local"
             }
           },
           "defaultConfiguration": "development"

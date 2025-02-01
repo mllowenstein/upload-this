@@ -7,6 +7,7 @@
 /bazel-out
 
 # Node
+/functions/node_modules
 /node_modules
 npm-debug.log
 yarn-error.log
@@ -40,3 +41,18 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# emacs temp files
+*~
+
+# manual env overrides
+src/config.json
+
+# assets for testing
+/src/assets/style/primeng/components
+
+# environment dotfiles
+.env
+.env.*
+
+/src/temp
